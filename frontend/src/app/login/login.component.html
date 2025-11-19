@@ -1,0 +1,50 @@
+<div class="fondo-login container d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow-lg" style="min-width: 370px; background-color: #f5f5dc;">
+    <h3 class="text-center mb-4" style="color: #3e4c3f;">
+      📚 Letras & Tinta <br>
+      <small class="text-muted">Iniciar Sesión</small>
+    </h3>
+
+    <form (ngSubmit)="iniciarSesion()" #form="ngForm" novalidate>
+      <!-- USUARIO -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Correo Electronico</label>
+        <input [(ngModel)]="usuario" name="usuario" #usuarioInput="ngModel" class="form-control"
+          [ngClass]="{ 'is-invalid': usuarioInput.invalid && (usuarioInput.dirty || usuarioInput.touched) }" required
+          pattern="^[\w-.]+@[\w-]+\.[a-zA-Z]{2,}$" />
+        <div class="invalid-feedback d-block">
+          <div *ngIf="usuarioInput.errors?.['required'] && (usuarioInput.touched || formularioEnviado)">
+            ⚠️ El correo es obligatorio.
+          </div>
+          <div *ngIf="usuarioInput.errors?.['pattern'] && (usuarioInput.touched || formularioEnviado)">
+            ⚠️ El correo no es válido.
+          </div>
+          <div *ngIf="!usuarioInput.errors && errorUsuario">
+            {{ errorUsuario }}
+          </div>
+        </div>
+      </div>
+
+
+      <!-- CONTRASEÑA -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Contraseña</label>
+        <input [(ngModel)]="contrasena" name="clave" #claveInput="ngModel" type="password" class="form-control"
+          [ngClass]="{ 'is-invalid': claveInput.invalid && (claveInput.dirty || claveInput.touched) }" required />
+        <div class="invalid-feedback d-block">
+          <div *ngIf="claveInput.errors?.['required'] && (claveInput.touched || formularioEnviado)">
+            ⚠️ La contraseña es obligatoria.
+          </div>
+          <div *ngIf="errorClave">{{ errorClave }}</div>
+
+        </div>
+      </div>
+
+      <!-- BOTÓN -->
+      <button class="btn btn-success w-100" type="submit">Ingresar</button>
+      <div class="text-center mt-3">
+        ¿No tienes una cuenta? <a routerLink="/registro">Regístrate aquí</a>
+      </div>
+    </form>
+  </div>
+</div>

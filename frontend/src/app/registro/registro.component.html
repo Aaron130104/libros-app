@@ -1,0 +1,30 @@
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+  <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%;">
+    <div class="text-center mb-4">
+      <h3 class="fw-bold">📝 Crear nueva cuenta</h3>
+      <p class="text-muted">Por favor, ingresa tus datos</p>
+    </div>
+
+    <form (ngSubmit)="registrar()">
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo electrónico</label>
+        <input type="email" id="correo" class="form-control form-control-lg" [(ngModel)]="usuario.correo" name="correo"
+          required placeholder="tucorreo@ejemplo.com" />
+      </div>
+
+      <div class="mb-3">
+        <label for="clave" class="form-label">Contraseña</label>
+        <input type="password" id="clave" class="form-control form-control-lg" [(ngModel)]="usuario.clave" name="clave"
+          required placeholder="********" />
+      </div>
+
+      <button type="submit" class="btn btn-success w-100 btn-lg mt-2">
+        ✅ Registrarse
+      </button>
+
+      <div *ngIf="mensaje" class="alert alert-info mt-3 text-center">
+        {{ mensaje }}
+      </div>
+    </form>
+  </div>
+</div>

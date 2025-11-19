@@ -1,0 +1,69 @@
+<!-- Buscador-->
+<div class="buscador-con-estilo">
+  <form (ngSubmit)="buscar()">
+    <div class="input-group">
+      <input [(ngModel)]="valorBusqueda" name="valorBusqueda" class="form-control buscador-input"
+        placeholder="Buscar por título..." />
+      <button class="btn btn-primary buscador-boton" type="submit">Buscar</button>
+    </div>
+  </form>
+</div>
+
+<!-- Mensajes -->
+<div id="carruselLibros" class="carousel slide mb-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+
+    <!-- Imagen fija 2 sin texto -->
+    <div class="carousel-item active">
+      <img src="assets/img/banner2.jpeg" class="img-carrusel">
+    </div>
+
+    <!-- Imagen fija 3 sin texto -->
+    <div class="carousel-item">
+      <img src="assets/img/banner3.jpeg" class="img-carrusel">
+    </div>
+
+    <!-- Imagen fija 4 sin texto -->
+    <div class="carousel-item">
+      <img src="assets/img/banner4.jpeg" class="img-carrusel">
+    </div>
+
+  </div>
+
+  <!-- Controles -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carruselLibros" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carruselLibros" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<div class="container mt-4">
+  <!-- Botones solo si es ADMIN -->
+  <div class="d-flex justify-content-end mb-3" *ngIf="esAdmin">
+    <a routerLink="/nuevo-libro" class="btn btn-success me-2">➕ Nuevo Libro</a>
+    <a routerLink="/editar-libro" class="btn boton-amarillo">✏️ Editar Libro</a>
+  </div>
+</div>
+
+<!-- LISTADO DE LIBROS EN INICIO -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let libro of libros">
+      <div class="card h-100 border-0 bg-dark text-white text-center rounded shadow">
+        <img *ngIf="libro.portada" [src]="rutaImagen + libro.portada" alt="Portada" class="img-fluid p-3 img-libro">
+        <h5 class="card-title fw-bold">{{ libro.titulo }}</h5>
+        <p class="mb-1">{{ libro.autor }}</p>
+        <div class="bg-warning text-primary fw-bold rounded py-1 mb-2 precio-grande">
+          S/ {{ libro.precio }}
+        </div>
+        <div class="d-flex gap-2">
+          <button class="boton-azul btn-sm" (click)="agregarAlCarrito(libro)">🛒 Agregar al carrito</button>
+          <!-- Este botón solo lo verá un ADMIN -->
+          <button *ngIf="esAdmin" class="btn btn-danger btn-sm" (click)="Delete(libro)">🗑️ Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

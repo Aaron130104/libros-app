@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a [routerLink]="['/inicio']" class="navbar-brand">Letras & Tinta</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/inicio">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/categoria/historia">Historia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/categoria/infantil">Infantil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/categoria/juvenil">Juvenil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/categoria/terror">Terror</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/categoria/ciencia-ficcion">Ciencia Ficción</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/categoria/novela">Novela</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center gap-3">
+
+                <!-- Muestra el correo si hay sesión -->
+                <span *ngIf="estaLogueado()" class="text-white me-2">
+                    {{ obtenerCorreo() }}
+                </span>
+
+                <a class="btn btn-outline-light position-relative" routerLink="/carrito">
+                    🛒
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ cantidadLibros }}
+                    </span>
+                </a>
+
+                <!-- Botón de Iniciar sesión -->
+                <a class="btn btn-primary" routerLink="/login">Iniciar Sesión</a>
+                <!-- Botón solo visible si hay sesión -->
+                <button *ngIf="estaLogueado()" class="btn btn-outline-danger ms-auto" (click)="cerrarSesion()">
+                    🔒 Cerrar sesión
+                </button>
+                <!-- Botones de accesibilidad -->
+                <div class="d-flex align-items-center gap-2 me-2">
+                    <button class="btn btn-sm btn-accesibilidad" (click)="cambiarTamanioTexto('+')">A+</button>
+                    <button class="btn btn-sm btn-accesibilidad" (click)="cambiarTamanioTexto('-')">A-</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>

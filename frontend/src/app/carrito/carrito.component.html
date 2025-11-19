@@ -1,0 +1,65 @@
+<div class="container mt-5">
+    <div class="bg-dark bg-opacity-75 p-4 rounded shadow-lg">
+        <h2 class="text-white text-center mb-4">🛒 Tu carrito</h2>
+
+        <!-- Carrito vacío -->
+        <div *ngIf="carrito.length === 0" class="alert alert-warning text-center">
+            ❌ El carrito está vacío.
+        </div>
+
+        <!-- Lista de libros -->
+        <div class="row" *ngIf="carrito.length > 0">
+            <div class="col-md-4 mb-4" *ngFor="let libro of carrito">
+                <div class="card h-100 bg-dark text-white text-center border-0 shadow">
+                    <img *ngIf="libro.portada" [src]="'http://localhost:8080/uploads/' + libro.portada" alt="Portada"
+                        class="img-portada rounded-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">{{ libro.titulo }}</h5>
+                        <p class="card-text">{{ libro.autor }}</p>
+                        <div class="bg-warning text-primary fw-bold rounded py-1 mb-3 precio-grande">
+                            S/ {{ libro.precio }}
+                        </div>
+                        <button class="btn btn-danger w-100" (click)="eliminarDelCarrito(libro)">
+                            🗑️ Quitar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total -->
+        <div class="mt-4 text-center" *ngIf="carrito.length > 0">
+            <p class="text-white fs-4 mb-3">
+                <strong>Total:</strong> S/. {{ obtenerTotal() }}
+            </p>
+            <button class="btn btn-warning btn-lg" (click)="vaciarCarrito()">🧹 Vaciar carrito</button>
+            <button class="btn btn-success btn-lg ms-2" (click)="realizarCompra()">💳 Comprar</button>
+
+        </div>
+
+        <!-- Fondo oscuro detrás -->
+        <div *ngIf="mostrarComprobante" class="fondo-oscuro"></div>
+
+        <!-- Comprobante flotante -->
+        <div *ngIf="mostrarComprobante" class="ticket-flotante shadow-lg rounded">
+            <!-- Botón cerrar -->
+            <button class="cerrar-comprobante btn btn-danger btn-sm no-imprimir"
+                (click)="cerrarComprobante()">❌</button>
+
+            <button class="btn btn-secondary btn-sm mb-2 no-imprimir" (click)="imprimirTicket()">🖨️ Imprimir</button>
+
+
+            <div class="bg-light text-dark p-4 rounded">
+                <h4 class="text-center">🧾 Comprobante de Compra</h4>
+                <ul class="list-group list-group-flush my-3">
+                    <li *ngFor="let libro of detalleCompra" class="list-group-item">
+                        <strong>{{ libro.titulo }}</strong> - S/ {{ libro.precio }}
+                    </li>
+                </ul>
+                <p class="text-end fw-bold">Total pagado: S/ {{ totalCompra }}</p>
+                <p class="text-center text-muted">Gracias por tu compra 🙌</p>
+
+            </div>
+        </div>
+    </div>
+</div>
